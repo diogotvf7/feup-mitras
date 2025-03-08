@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuh1oimhecf6d"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_fcbqb"]
+[ext_resource type="Texture2D" uid="uid://dedo31s4fwkuo" path="res://assets/sprites/player/nave.png" id="1_v828l"]
+[ext_resource type="Texture2D" uid="uid://ca2bnm03c6s4k" path="res://assets/sprites/player/flash.png" id="2_dgxkf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8rc7"]
+size = Vector2(15, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l8jxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dgxkf")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"flash",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_fcbqb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("1_v828l")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_a8rc7")
+
+[node name="ShootAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(18, 0)
+sprite_frames = SubResource("SpriteFrames_l8jxk")
+animation = &"flash"
+frame = 2
+frame_progress = 1.0
