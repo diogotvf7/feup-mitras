@@ -5,8 +5,14 @@ var input := Vector2.ZERO
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var shoot_animation : AnimatedSprite2D = $ShootAnimation
+@onready var timer: Timer = $Timer
 
-var laser = preload("res://scenes/laser.tscn").instantiate()
+const laser_scene = preload("res://scenes/laser.tscn")
+const max_shots = 3
+const cooldown_time = 3.0
+
+var current_shots = 0
+var can_shoot = true
 
 func _ready() -> void:
 	respawn()
@@ -47,8 +53,22 @@ func update():
 func limit_position():
 	position.x = clamp(position.x, 0, get_viewport().content_scale_size.x)
 	position.y = clamp(position.y, 0, get_viewport().content_scale_size.y)
-	
+
+
 func shoot():
-	shoot_animation.play("flash")
-	get_parent().add_child(laser)
-	laser.position = position + Vector2(30, 0)
+	if can_shoot and current_shots < max_shots:
+		shoot_animation.play("flash")
+		var laser = laser_scene.instantiate()
+		get_parent().add_child(laser)
+		laser.position = position + Vector2(30, 0)
+		current_shots += 1
+		
+		if current_shots >= max_shots:
+			can_shoot = false
+			timer.start()
+
+
+
+func _on_timer_timeout() -> void:
+	can_shoot = true
+	current_shots = 0
