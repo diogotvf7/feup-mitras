@@ -3,6 +3,11 @@ extends CharacterBody2D
 @export var speed = 100
 var input := Vector2.ZERO
 
+@onready var sprite : Sprite2D = $Sprite2D
+@onready var shoot_animation : AnimatedSprite2D = $ShootAnimation
+
+var laser = preload("res://scenes/laser.tscn").instantiate()
+
 func _ready() -> void:
 	respawn()
 	
@@ -30,13 +35,13 @@ func move(delta):
 func update():
 	# going up
 	if input.y > 0: 
-		$Sprite2D.frame = 1
+		sprite.frame = 1
 	
 	# going down
 	elif input.y < 0:
-		$Sprite2D.frame = 2
+		sprite.frame = 2
 	else:
-		$Sprite2D.frame = 0
+		sprite.frame = 0
 		
 
 func limit_position():
@@ -44,4 +49,6 @@ func limit_position():
 	position.y = clamp(position.y, 0, get_viewport().content_scale_size.y)
 	
 func shoot():
-	$ShootAnimation.play("flash")
+	shoot_animation.play("flash")
+	get_parent().add_child(laser)
+	laser.position = position + Vector2(30, 0)

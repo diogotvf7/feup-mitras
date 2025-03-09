@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cnlcksg41tv78"]
 
 [ext_resource type="Texture2D" uid="uid://bqb32lws0o5of" path="res://assets/sprites/background/stars.png" id="1_jillp"]
-[ext_resource type="Shader" path="res://shaders/animation.gdshader" id="1_ta8da"]
+[ext_resource type="Shader" path="res://assets/shaders/animation.gdshader" id="1_ta8da"]
 [ext_resource type="PackedScene" uid="uid://cuh1oimhecf6d" path="res://scenes/player.tscn" id="1_yk8ph"]
 [ext_resource type="Texture2D" uid="uid://cj4jgimstk2r3" path="res://assets/sprites/background/universe.png" id="2_mc5ib"]
 
