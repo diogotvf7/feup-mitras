@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://cnlcksg41tv78"]
 
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_hycg4"]
 [ext_resource type="Texture2D" uid="uid://bqb32lws0o5of" path="res://assets/sprites/background/stars.png" id="1_jillp"]
 [ext_resource type="Shader" path="res://assets/shaders/animation.gdshader" id="1_ta8da"]
 [ext_resource type="PackedScene" uid="uid://cuh1oimhecf6d" path="res://scenes/player.tscn" id="1_yk8ph"]
 [ext_resource type="Texture2D" uid="uid://cj4jgimstk2r3" path="res://assets/sprites/background/universe.png" id="2_mc5ib"]
-[ext_resource type="PackedScene" uid="uid://dya4gtyfgehyr" path="res://scenes/obstacle.tscn" id="5_uys7u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t2aqe"]
 shader = ExtResource("1_ta8da")
@@ -17,6 +17,7 @@ shader_parameter/direction = Vector2(1, 0)
 shader_parameter/speed_scale = 0.02
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_hycg4")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -38,5 +39,8 @@ stretch_mode = 1
 position = Vector2(68, 82)
 scale = Vector2(1.2, 1.2)
 
-[node name="Obstacle" parent="." instance=ExtResource("5_uys7u")]
-position = Vector2(195, 50)
+[node name="ObstacleSpawner" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="ObstacleSpawner" to="." method="_on_obstacle_spawner_timeout"]
