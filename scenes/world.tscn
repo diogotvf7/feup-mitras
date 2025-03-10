@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnlcksg41tv78"]
+[gd_scene load_steps=8 format=3 uid="uid://cnlcksg41tv78"]
 
 [ext_resource type="Texture2D" uid="uid://bqb32lws0o5of" path="res://assets/sprites/background/stars.png" id="1_jillp"]
 [ext_resource type="Shader" path="res://assets/shaders/animation.gdshader" id="1_ta8da"]
 [ext_resource type="PackedScene" uid="uid://cuh1oimhecf6d" path="res://scenes/player.tscn" id="1_yk8ph"]
 [ext_resource type="Texture2D" uid="uid://cj4jgimstk2r3" path="res://assets/sprites/background/universe.png" id="2_mc5ib"]
+[ext_resource type="PackedScene" uid="uid://dya4gtyfgehyr" path="res://scenes/obstacle.tscn" id="5_uys7u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t2aqe"]
 shader = ExtResource("1_ta8da")
@@ -36,3 +37,6 @@ stretch_mode = 1
 [node name="Player" parent="." instance=ExtResource("1_yk8ph")]
 position = Vector2(68, 82)
 scale = Vector2(1.2, 1.2)
+
+[node name="Obstacle" parent="." instance=ExtResource("5_uys7u")]
+position = Vector2(195, 50)
