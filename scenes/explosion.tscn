@@ -52,7 +52,7 @@ _data = {
 "explode": SubResource("Animation_rr1at")
 }
 
-[node name="ExplosionFx" type="Sprite2D"]
+[node name="Explosion" type="Sprite2D"]
 texture = ExtResource("1_m07q5")
 hframes = 6
 
