@@ -37,10 +37,9 @@ stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("1_yk8ph")]
 position = Vector2(68, 82)
-scale = Vector2(1.2, 1.2)
 
 [node name="ObstacleSpawner" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="ObstacleSpawner" to="." method="_on_obstacle_spawner_timeout"]

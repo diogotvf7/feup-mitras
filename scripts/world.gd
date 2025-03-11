@@ -1,6 +1,13 @@
 extends Node2D
 
+@onready var timer: Timer = $ObstacleSpawner
 
+
+func _ready() -> void:
+	#spawn_obstacle()
+	timer.start()
+	
+	
 func spawn_obstacle()->void:
 	var obstacle = preload("res://scenes/obstacle.tscn").instantiate()
 	obstacle.position = get_random_position()
@@ -18,4 +25,5 @@ func get_random_position()->Vector2:
 
 
 func _on_obstacle_spawner_timeout() -> void:
-	spawn_obstacle()
+	if randf() < 0.2:
+		spawn_obstacle()
