@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 @export var speed = 100
@@ -13,6 +14,8 @@ const cooldown_time = 3.0
 
 var current_shots = 0
 var can_shoot = true
+
+var health = 3
 
 func _ready() -> void:
 	respawn()
@@ -65,6 +68,7 @@ func shoot():
 		
 		if current_shots >= max_shots:
 			can_shoot = false
+			print("recharging")
 			timer.start()
 
 
@@ -72,3 +76,17 @@ func shoot():
 func _on_timer_timeout() -> void:
 	can_shoot = true
 	current_shots = 0
+
+func spawn_explosion():
+	var explosion = preload("res://scenes/explosion.tscn").instantiate()
+	explosion.position = position
+	get_parent().add_child(explosion)
+	
+func kill_player():
+	spawn_explosion()
+	respawn()
+	health -= 1
+	print("-1 health")
+	if health < 0:
+		print("game over")
+		# TODO

@@ -21,7 +21,7 @@ func spawn_small_obstacle(pos, size):
 	obstacle.dir = 1 if randi() % 2 == 0 else -1
 	obstacle.connect("shot", _on_obstacle_exploded)
 	
-	add_child(obstacle)
+	call_deferred("add_child", obstacle)
 	
 func get_random_position()->Vector2:
 	var x = get_viewport().content_scale_size.x
@@ -35,6 +35,11 @@ func _on_obstacle_spawner_timeout() -> void:
 	if randf() < 0.2:
 		spawn_obstacle()
 
+func spawn_explosion(pos):
+	var explosion = preload("res://scenes/explosion.tscn").instantiate()
+	explosion.position = pos
+	get_parent().add_child(explosion)
+	
 func _on_obstacle_exploded(pos, size):
 	for i in range(2):
 		match size:
@@ -42,5 +47,5 @@ func _on_obstacle_exploded(pos, size):
 				var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
 				spawn_small_obstacle(pos + offset, Obstacle.ObstacleSize.SMALL)
 			Obstacle.ObstacleSize.SMALL:
-				pass
+				spawn_explosion(pos)
 			
