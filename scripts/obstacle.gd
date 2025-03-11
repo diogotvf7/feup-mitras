@@ -1,5 +1,5 @@
+class_name Obstacle 
 extends Area2D
-
 
 enum ObstacleSize{LARGE, SMALL}
 @export var size := ObstacleSize.LARGE
@@ -11,11 +11,12 @@ enum ObstacleSize{LARGE, SMALL}
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-var dir := -1
+@export var dir := -1
 
 var time := 0.0
 var pivot_position := Vector2(0, 0)
 
+signal shot
 func _ready() -> void:
 	pivot_position = position
 	rotation = randf_range(0, 2 * PI)
@@ -43,4 +44,9 @@ func _physics_process(delta: float) -> void:
 		dir *= -1
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()
+
+
+func exploded():
+	emit_signal("shot", position, size)
 	queue_free()
