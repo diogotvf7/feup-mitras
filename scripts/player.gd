@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal dead
+
 @export var speed = 100
 var input := Vector2.ZERO
 
@@ -9,16 +11,16 @@ var input := Vector2.ZERO
 @onready var timer: Timer = $Timer
 
 const laser_scene = preload("res://scenes/laser.tscn")
-const max_shots = 3
 const cooldown_time = 3.0
 
-var current_shots = 0
-var can_shoot = true
-
-var health = 3
+var max_ammo = 3
+var ammo = max_ammo
+var autoreload = false
+var hp = 2
+var invincibility = false
 
 func _ready() -> void:
-	respawn()
+	hide()
 	
 func respawn() -> void:
 	var x = -30
@@ -26,8 +28,16 @@ func respawn() -> void:
 	position = Vector2(x, y)
 	var tween = create_tween()
 	tween.tween_property(self, "position", Vector2(x + 100, y), 0.5 )
+	
+	ammo = max_ammo
+	set_invincibility()
 
-func _process(delta):
+func reset_stats():
+	autoreload = false
+	hp = 3
+	max_ammo = 3
+	
+func _process(delta):  
 	move(delta)
 	update()
 	limit_position()
@@ -42,40 +52,34 @@ func move(delta):
 
 # updates the animation
 func update():
-	# going up
 	if input.y > 0: 
-		sprite.frame = 1
-	
-	# going down
+		sprite.frame = 1 + (3 if invincibility else 0)
 	elif input.y < 0:
-		sprite.frame = 2
+		sprite.frame = 2 + (3 if invincibility else 0)
 	else:
-		sprite.frame = 0
+		sprite.frame = 0 + (3 if invincibility else 0)
 		
 
 func limit_position():
 	position.x = clamp(position.x, 0, get_viewport().content_scale_size.x)
 	position.y = clamp(position.y, 0, get_viewport().content_scale_size.y)
 
-
 func shoot():
-	if can_shoot and current_shots < max_shots:
+	if ammo > 0:
 		shoot_animation.play("flash")
 		var laser = laser_scene.instantiate()
 		get_parent().add_child(laser)
 		laser.position = position + Vector2(30, 0)
-		current_shots += 1
+		ammo -= 1
 		
-		if current_shots >= max_shots:
-			can_shoot = false
-			print("recharging")
+		if ammo == 0:
 			timer.start()
 
-
-
 func _on_timer_timeout() -> void:
-	can_shoot = true
-	current_shots = 0
+	if autoreload:
+		ammo = mini(ammo+1, max_ammo)
+	elif ammo == 0:
+		ammo = max_ammo
 
 func spawn_explosion():
 	var explosion = preload("res://scenes/explosion.tscn").instantiate()
@@ -83,10 +87,30 @@ func spawn_explosion():
 	get_parent().add_child(explosion)
 	
 func kill_player():
+	if (invincibility): return
 	spawn_explosion()
 	respawn()
-	health -= 1
-	print("-1 health")
-	if health < 0:
-		print("game over")
-		# TODO
+	hp -= 1
+	if hp == 0:
+		dead.emit()
+
+func set_invincibility():
+	$InvincibilityTimer.start()
+	invincibility = true
+	
+func _on_invincibility_timer_timeout() -> void:
+	invincibility = false
+
+func apply_power(powerup_type) -> void:
+	if powerup_type == "auto-reload":
+		autoreload = true
+		$Timer.wait_time -= 0.2
+	if powerup_type == "invincibility":
+		set_invincibility()
+	if powerup_type == "plus-ammo":
+		max_ammo += 1
+		ammo = max_ammo
+	if powerup_type == "plus-hp":
+		hp += 1
+		
+	

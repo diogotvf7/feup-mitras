@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ck2nmwddmyuvh"]
 
-[ext_resource type="Script" path="res://scripts/laser.gd" id="1_opvbm"]
+[ext_resource type="Script" uid="uid://dc55upsa0ttus" path="res://scripts/laser.gd" id="1_opvbm"]
 [ext_resource type="Texture2D" uid="uid://c6y2d58topke3" path="res://assets/sprites/laser-sprite.png" id="2_8472p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kjdg"]

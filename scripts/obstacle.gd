@@ -2,6 +2,7 @@ class_name Obstacle
 extends Area2D
 
 enum ObstacleSize{LARGE, SMALL}
+
 @export var size := ObstacleSize.LARGE
 
 @onready var window_size: Vector2  = get_viewport_rect().size
@@ -17,10 +18,11 @@ var time := 0.0
 var pivot_position := Vector2(0, 0)
 
 signal shot
+
 func _ready() -> void:
 	pivot_position = position
 	rotation = randf_range(0, 2 * PI)
-	
+
 	match size:
 		ObstacleSize.LARGE:
 			speed.x = randf_range(5, 15)
@@ -45,7 +47,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
-
 	
 func exploded():
 	emit_signal("shot", position, size)
