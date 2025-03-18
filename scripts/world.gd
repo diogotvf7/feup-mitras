@@ -65,6 +65,7 @@ func _on_obstacle_exploded(pos, size):
 	
 	match size:
 		Obstacle.ObstacleSize.LARGE:
+			score += 50
 			if rand <= powerup_odd:
 				spawn_powerup(pos)
 			else:
@@ -72,7 +73,10 @@ func _on_obstacle_exploded(pos, size):
 					var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
 					spawn_small_obstacle(pos + offset, Obstacle.ObstacleSize.SMALL)
 		Obstacle.ObstacleSize.SMALL:
+			score += 25
 			spawn_explosion(pos)
+	$HUD.update_score(score)
+			
 
 func _on_enemy_spawner_timeout() -> void:
 	var enemy = enemy_scene.instantiate()
@@ -81,8 +85,13 @@ func _on_enemy_spawner_timeout() -> void:
 	enemy.position = enemy_spawn_location.position
 	var direction = enemy_spawn_location.rotation + PI / 2
 	enemy.rotation = direction
+	enemy.dead.connect(_on_enemy_dead)
 	
 	add_child(enemy)
+
+func _on_enemy_dead(points) -> void:
+	score += points
+	$HUD.update_score(score)
 
 func spawn_powerup(pos) -> void:
 	var powerup = powerup_scene.instantiate()

@@ -1,6 +1,8 @@
 class_name Enemy
 extends Area2D
 
+signal dead(points)
+
 var speed
 var stage = 0
 var screen_size
@@ -26,6 +28,7 @@ func _on_body_entered(body: Node2D) -> void:
 		queue_free()
 		
 func destroy():
+	emit_signal("dead", 150)
 	queue_free()
 
 func _on_stage_timer_timeout() -> void:
@@ -36,7 +39,6 @@ func shoot():
 	var azeite = azeite_scene.instantiate()
 	get_parent().add_child(azeite)
 	azeite.position = position + Vector2(-30, 0)
-
 
 func _on_shoot_timer_timeout() -> void:
 	if stage == 0:
