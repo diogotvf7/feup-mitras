@@ -7,7 +7,7 @@ var speed
 var stage = 0
 var screen_size
 
-const azeite_scene = preload("res://scenes/azeite.tscn")
+@export var azeite_scene: PackedScene
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -37,8 +37,8 @@ func _on_stage_timer_timeout() -> void:
 
 func shoot():
 	var azeite = azeite_scene.instantiate()
-	get_parent().add_child(azeite)
 	azeite.position = position + Vector2(-30, 0)
+	get_parent().add_child(azeite)
 
 func _on_shoot_timer_timeout() -> void:
 	if stage == 0:

@@ -8,16 +8,18 @@ var screen_size
 signal shot
 signal dead(points)
 
+@export var azeite_scene: PackedScene
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	position.x = screen_size.x
 	position.y = screen_size.y / 2
-
+	$ShootTimer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if position.x / screen_size.x > 0.5:
+	if position.x / screen_size.x > 0.8:
 		position.x -= speed * delta
 
 func hit() -> void:
@@ -30,4 +32,14 @@ func hit() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.kill_player()
-		queue_free()
+
+func shoot():
+	var azeite = azeite_scene.instantiate()
+	var player = get_tree().get_first_node_in_group("player")  
+	azeite.set_target(player)
+	azeite.position = position + Vector2(-30, 0)
+	azeite.scale = Vector2(2,2)
+	get_parent().add_child(azeite)
+
+func _on_shoot_timer_timeout() -> void:
+	shoot()

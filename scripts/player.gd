@@ -16,7 +16,7 @@ const cooldown_time = 3.0
 var max_ammo = 3
 var ammo = max_ammo
 var autoreload = false
-var hp = 2
+var hp = 3
 var invincibility = false
 
 func _ready() -> void:

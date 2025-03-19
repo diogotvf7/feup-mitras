@@ -8,7 +8,7 @@ extends Node2D
 @onready var phase_timer: Timer = $PhaseTimer
 const boss_scene = preload("res://scenes/boss.tscn")
 
-@export var powerup_odd := 0.8
+@export var powerup_odd := 0.4
 var score
 var game_stage
 	
@@ -40,10 +40,11 @@ func _on_hud_start_game() -> void:
 	get_tree().call_group("enemies", "queue_free")
 	get_tree().call_group("obstacles", "queue_free")
 	get_tree().call_group("bosses", "queue_free")
+	get_tree().call_group("azeite", "queue_free")
 	
 	_on_phase_timer_timeout()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$HUD.update_ammo($Player.ammo)
 	$HUD.update_hp($Player.hp)
 	

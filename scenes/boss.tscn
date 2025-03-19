@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://tmmmip7jbfxv"]
+[gd_scene load_steps=5 format=3 uid="uid://tmmmip7jbfxv"]
 
 [ext_resource type="Texture2D" uid="uid://joacv8gxbq4q" path="res://assets/sprites/boss.svg" id="1_dlmty"]
-[ext_resource type="Script" uid="uid://cxpt1q25v3ce2" path="res://scenes/boss.gd" id="1_neq0i"]
+[ext_resource type="Script" uid="uid://cxpt1q25v3ce2" path="res://scripts/boss.gd" id="1_neq0i"]
+[ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/azeite.tscn" id="2_jncid"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_neq0i"]
 animations = [{
@@ -15,19 +16,24 @@ animations = [{
 }]
 
 [node name="Boss" type="Area2D" groups=["bosses"]]
-position = Vector2(-64, -8)
 script = ExtResource("1_neq0i")
+azeite_scene = ExtResource("2_jncid")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(63.5537, 7.81387)
+position = Vector2(0, -8)
 scale = Vector2(0.0803709, 0.0803709)
 sprite_frames = SubResource("SpriteFrames_neq0i")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(63.5537, 7.81386)
+position = Vector2(3.8147e-06, -8)
 scale = Vector2(0.0773986, 0.0773986)
 build_mode = 1
 polygon = PackedVector2Array(-384, 328, 268.665, 328, 384, 328, 24, -320)
-metadata/_edit_group_ = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="Azeite" parent="." instance=ExtResource("2_jncid")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

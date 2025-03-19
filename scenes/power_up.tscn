@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=4 uid="uid://cjq5c5hls88cs"]
 
 [ext_resource type="Texture2D" uid="uid://w5mfbrjjkhc3" path="res://assets/sprites/powerups/auto-reload.png" id="1_6iuya"]
-[ext_resource type="Script" uid="uid://cyeiggiklaeu8" path="res://scenes/power_up.gd" id="1_uk6or"]
+[ext_resource type="Script" uid="uid://cyeiggiklaeu8" path="res://scripts/power_up.gd" id="1_uk6or"]
 [ext_resource type="Texture2D" uid="uid://cgfga75y4eg1q" path="res://assets/sprites/powerups/invincibility.png" id="2_uk6or"]
 [ext_resource type="Texture2D" uid="uid://b6agf67qsgrra" path="res://assets/sprites/powerups/plus-hp.png" id="3_bmfpq"]
 [ext_resource type="Texture2D" uid="uid://bh0t3hau4n4ns" path="res://assets/sprites/powerups/plus-ammo.png" id="4_bmfpq"]

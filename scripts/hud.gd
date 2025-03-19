@@ -39,6 +39,8 @@ func show_game_over(score: int):
 	$Ammo.hide()
 	$ExtraHPLabel.hide()
 	$HP.hide()
+	$ProgressBar.hide()
+	$BossLabel.hide()
 	
 	$FinalScoreLabel.text = str(score)
 	$StartButton.show()

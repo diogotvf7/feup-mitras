@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://h1cc20y4258y"]
+[gd_scene load_steps=9 format=3 uid="uid://h1cc20y4258y"]
 
 [ext_resource type="Script" uid="uid://dnanrsf21kl4u" path="res://scripts/enemy.gd" id="1_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/azeite.tscn" id="2_r6b1b"]
 [ext_resource type="Texture2D" uid="uid://b1vxcp4dtdatk" path="res://assets/sprites/enemy/1pix64.png" id="2_xwavj"]
 [ext_resource type="Texture2D" uid="uid://cw3ae6ae05wct" path="res://assets/sprites/enemy/2pix64.png" id="3_nenq2"]
 [ext_resource type="Texture2D" uid="uid://b14gmkjjm370e" path="res://assets/sprites/enemy/3pix64.png" id="4_md484"]
@@ -30,8 +31,9 @@ animations = [{
 radius = 5.0
 height = 32.0
 
-[node name="EasyEnemy" type="Area2D"]
+[node name="EasyEnemy" type="Area2D" groups=["enemies"]]
 script = ExtResource("1_c4w8v")
+azeite_scene = ExtResource("2_r6b1b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 3.14159
