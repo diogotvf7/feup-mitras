@@ -30,7 +30,8 @@ func respawn() -> void:
 	tween.tween_property(self, "position", Vector2(x + 100, y), 0.5 )
 	
 	ammo = max_ammo
-	set_invincibility()
+	set_invincibility()	
+	
 
 func reset_stats():
 	autoreload = false

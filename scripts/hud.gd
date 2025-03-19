@@ -11,6 +11,8 @@ func _ready() -> void:
 	$HP.hide()
 	$GameOverLabel.hide()
 	$FinalScoreLabel.hide()
+	$ProgressBar.hide()
+	$BossLabel.hide()
 
 func update_score(score):
 	$ScoreLabel.text = str(score)
@@ -54,3 +56,13 @@ func _on_start_button_pressed() -> void:
 	$HP.show()
 	start_game.emit()
 	$StartButton.text = "Play Again"
+	
+func display_boss_hp():
+	$ProgressBar.show()
+	$BossLabel.show()
+	
+func update_boss_hp(hp):
+	$ProgressBar.value = hp
+	if hp <= 0: 
+		$ProgressBar.hide()
+		$BossLabel.hide()

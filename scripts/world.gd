@@ -5,11 +5,27 @@ extends Node2D
 @onready var obstacle_timer: Timer = $ObstacleSpawner
 @onready var enemy_timer: Timer = $EnemySpawner
 @onready var score_timer: Timer = $ScoreTimer
+@onready var phase_timer: Timer = $PhaseTimer
+const boss_scene = preload("res://scenes/boss.tscn")
 
 @export var powerup_odd := 0.8
 var score
-var game_stage = 0
-
+var game_stage
+	
+func _on_phase_timer_timeout() -> void:
+	if game_stage == 0:
+		enemy_timer.start()
+	if game_stage == 1:
+		obstacle_timer.start()
+	if game_stage == 2:
+		$HUD.display_boss_hp()
+		var boss = boss_scene.instantiate()
+		boss.connect("shot", $HUD.update_boss_hp)
+		boss.dead.connect(_on_enemy_dead)
+		get_parent().add_child(boss)
+	
+	game_stage += 1
+		
 func _ready() -> void:
 	$Player.hide()
 	
@@ -17,13 +33,16 @@ func _on_hud_start_game() -> void:
 	$Player.show()
 	$Player.reset_stats()
 	$Player.respawn()
-	obstacle_timer.start()
-	enemy_timer.start()
 	score_timer.start()
+	phase_timer.start()
 	score = 0
-	get_tree().call_group("obstacles", "queue_free")
+	game_stage = 0
 	get_tree().call_group("enemies", "queue_free")
-
+	get_tree().call_group("obstacles", "queue_free")
+	get_tree().call_group("bosses", "queue_free")
+	
+	_on_phase_timer_timeout()
+	
 func _process(delta: float) -> void:
 	$HUD.update_ammo($Player.ammo)
 	$HUD.update_hp($Player.hp)
@@ -107,3 +126,4 @@ func _on_player_dead() -> void:
 	$HUD.show_game_over(score)
 	$Player.ammo = 9999
 	$Player.invincibility = true
+	

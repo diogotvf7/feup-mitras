@@ -21,3 +21,8 @@ func _on_area_entered(area):
 		var enemy = area
 		enemy.destroy()
 		queue_free()
+	if area is Boss:
+		print("Tiro tiro")
+		var boss = area
+		boss.hit()
+		queue_free()

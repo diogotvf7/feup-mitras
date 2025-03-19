@@ -67,8 +67,12 @@ wait_time = 2.0
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
+[node name="PhaseTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="timeout" from="ObstacleSpawner" to="." method="_on_obstacle_spawner_timeout"]
 [connection signal="timeout" from="EnemySpawner" to="." method="_on_enemy_spawner_timeout"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]
