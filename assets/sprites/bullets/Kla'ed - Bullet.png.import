@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw3ae6ae05wct"
-path="res://.godot/imported/2pix64.png-1ff157e43d050e21061a5788fac752c2.ctex"
+uid="uid://bh5w8xtou3nhw"
+path="res://.godot/imported/Kla'ed - Bullet.png-336acdd69452f9b402c233d0973a7ebd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/2pix64.png"
-dest_files=["res://.godot/imported/2pix64.png-1ff157e43d050e21061a5788fac752c2.ctex"]
+source_file="res://assets/sprites/bullets/Kla'ed - Bullet.png"
+dest_files=["res://.godot/imported/Kla'ed - Bullet.png-336acdd69452f9b402c233d0973a7ebd.ctex"]
 
 [params]
 

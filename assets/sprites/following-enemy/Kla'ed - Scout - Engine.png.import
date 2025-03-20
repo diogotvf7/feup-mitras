@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://joacv8gxbq4q"
-path="res://.godot/imported/boss.svg-59ab3b816f39d04def1e378c701bae55.ctex"
+uid="uid://duvuk0ugcvkmu"
+path="res://.godot/imported/Kla'ed - Scout - Engine.png-2a42822bba3bc860c75ee58da397b387.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/boss.svg"
-dest_files=["res://.godot/imported/boss.svg-59ab3b816f39d04def1e378c701bae55.ctex"]
+source_file="res://assets/sprites/following-enemy/Kla'ed - Scout - Engine.png"
+dest_files=["res://.godot/imported/Kla'ed - Scout - Engine.png-2a42822bba3bc860c75ee58da397b387.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

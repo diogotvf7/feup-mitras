@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnlcksg41tv78"]
+[gd_scene load_steps=13 format=3 uid="uid://cnlcksg41tv78"]
 
 [ext_resource type="Script" uid="uid://cggo2y67ynnmq" path="res://scripts/world.gd" id="1_hycg4"]
 [ext_resource type="Texture2D" uid="uid://bqb32lws0o5of" path="res://assets/sprites/background/stars.png" id="1_jillp"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cuh1oimhecf6d" path="res://scenes/player.tscn" id="1_yk8ph"]
 [ext_resource type="PackedScene" uid="uid://cjq5c5hls88cs" path="res://scenes/power_up.tscn" id="2_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://cj4jgimstk2r3" path="res://assets/sprites/background/universe.png" id="2_mc5ib"]
-[ext_resource type="PackedScene" uid="uid://h1cc20y4258y" path="res://scenes/easy_enemy.tscn" id="2_qfnet"]
+[ext_resource type="PackedScene" uid="uid://h1cc20y4258y" path="res://scenes/following_enemy.tscn" id="2_qfnet"]
+[ext_resource type="PackedScene" uid="uid://bk2j0unnrbu0w" path="res://scenes/enemy.tscn" id="3_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://beers4vlbj5co" path="res://scenes/hud.tscn" id="7_i7141"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t2aqe"]
@@ -28,7 +29,8 @@ point_count = 2
 [node name="World" type="Node2D"]
 script = ExtResource("1_hycg4")
 powerup_scene = ExtResource("2_4mrxx")
-enemy_scene = ExtResource("2_qfnet")
+enemy_scene = ExtResource("3_7r4gi")
+following_enemy_scene = ExtResource("2_qfnet")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -49,8 +51,7 @@ stretch_mode = 1
 [node name="Player" parent="." instance=ExtResource("1_yk8ph")]
 position = Vector2(68, 82)
 
-[node name="ObstacleSpawner" type="Timer" parent="."]
-wait_time = 2.0
+[node name="MobSpawner" type="Timer" parent="."]
 
 [node name="EnemyPath" type="Path2D" parent="."]
 position = Vector2(1, 0)
@@ -60,9 +61,6 @@ curve = SubResource("Curve2D_71j4m")
 position = Vector2(271, 0)
 rotation = 1.5708
 
-[node name="EnemySpawner" type="Timer" parent="."]
-wait_time = 2.0
-
 [node name="HUD" parent="." instance=ExtResource("7_i7141")]
 
 [node name="ScoreTimer" type="Timer" parent="."]
@@ -71,8 +69,7 @@ wait_time = 2.0
 wait_time = 30.0
 
 [connection signal="dead" from="Player" to="." method="_on_player_dead"]
-[connection signal="timeout" from="ObstacleSpawner" to="." method="_on_obstacle_spawner_timeout"]
-[connection signal="timeout" from="EnemySpawner" to="." method="_on_enemy_spawner_timeout"]
+[connection signal="timeout" from="MobSpawner" to="." method="_on_mob_spawner_timeout"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="PhaseTimer" to="." method="_on_phase_timer_timeout"]

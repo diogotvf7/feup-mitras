@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvvhn6hfq3bvw"
-path="res://.godot/imported/4pix64.png-bb7b70ec09609c09821b7a085cf6e552.ctex"
+uid="uid://df85cjlisl6xi"
+path="res://.godot/imported/feup-o-regresso-dos-mitras-20-03-2025.png-558e5e9d2c99a1051d66810c7e7ec5f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/4pix64.png"
-dest_files=["res://.godot/imported/4pix64.png-bb7b70ec09609c09821b7a085cf6e552.ctex"]
+source_file="res://assets/feup-o-regresso-dos-mitras-20-03-2025.png"
+dest_files=["res://.godot/imported/feup-o-regresso-dos-mitras-20-03-2025.png-558e5e9d2c99a1051d66810c7e7ec5f7.ctex"]
 
 [params]
 

@@ -1,14 +1,15 @@
 class_name Boss
 extends Area2D
 
-@export var hp = 100
+@export var max_hp = 100
 @export var speed = 100
 var screen_size
 
+var hp = 100
 signal shot
 signal dead(points)
 
-@export var azeite_scene: PackedScene
+@export var torpedo_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,7 @@ func _ready() -> void:
 	position.x = screen_size.x
 	position.y = screen_size.y / 2
 	$ShootTimer.start()
+	rotation -= PI/2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -34,12 +36,12 @@ func _on_body_entered(body: Node2D) -> void:
 		body.kill_player()
 
 func shoot():
-	var azeite = azeite_scene.instantiate()
+	var torpedo = torpedo_scene.instantiate()
 	var player = get_tree().get_first_node_in_group("player")  
-	azeite.set_target(player)
-	azeite.position = position + Vector2(-30, 0)
-	azeite.scale = Vector2(2,2)
-	get_parent().add_child(azeite)
+	torpedo.set_target(player)
+	torpedo.position = position + Vector2(-30, 0)
+	torpedo.scale = Vector2(2,2)
+	get_parent().add_child(torpedo)
 
 func _on_shoot_timer_timeout() -> void:
 	shoot()

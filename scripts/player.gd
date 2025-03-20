@@ -35,6 +35,7 @@ func respawn() -> void:
 
 func reset_stats():
 	autoreload = false
+	timer.wait_time = 3.0
 	hp = 3
 	max_ammo = 3
 	
@@ -59,7 +60,6 @@ func update():
 		sprite.frame = 2 + (3 if invincibility else 0)
 	else:
 		sprite.frame = 0 + (3 if invincibility else 0)
-		
 
 func limit_position():
 	position.x = clamp(position.x, 0, get_viewport().content_scale_size.x)
@@ -104,8 +104,11 @@ func _on_invincibility_timer_timeout() -> void:
 
 func apply_power(powerup_type) -> void:
 	if powerup_type == "auto-reload":
+		if autoreload:
+			$Timer.wait_time /= 2
+		else:
+			$Timer.wait_time *= 0.8
 		autoreload = true
-		$Timer.wait_time -= 0.2
 	if powerup_type == "invincibility":
 		set_invincibility()
 	if powerup_type == "plus-ammo":

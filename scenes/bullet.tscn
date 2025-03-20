@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://cfflgh14d40ao"]
+
+[ext_resource type="Script" uid="uid://cpphfraw337uy" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://dapcqtfuwfpmo" path="res://assets/sprites/bullets/Kla'ed - Big Bullet.png" id="2_y25gk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5glv"]
+atlas = ExtResource("2_y25gk")
+region = Rect2(0, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoqba"]
+atlas = ExtResource("2_y25gk")
+region = Rect2(8, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qncy5"]
+atlas = ExtResource("2_y25gk")
+region = Rect2(16, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tamys"]
+atlas = ExtResource("2_y25gk")
+region = Rect2(24, 0, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62odf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5glv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoqba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qncy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tamys")
+}],
+"loop": true,
+"name": &"bullet",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m25o"]
+radius = 1.0
+height = 8.0
+
+[node name="Bullet" type="Area2D" groups=["bullets"]]
+script = ExtResource("1_y25gk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(0.25, 0.5)
+sprite_frames = SubResource("SpriteFrames_62odf")
+animation = &"bullet"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1m25o")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(0.1, 0.4)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

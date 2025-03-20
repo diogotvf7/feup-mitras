@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b14gmkjjm370e"
-path="res://.godot/imported/3pix64.png-e5303d130f8a14325fa98c0a87948445.ctex"
+uid="uid://c5k7eqnvshiqk"
+path="res://.godot/imported/Kla'ed - Scout - Base.png-a2dc0ac51bb67ac6350b5186e929fb12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/3pix64.png"
-dest_files=["res://.godot/imported/3pix64.png-e5303d130f8a14325fa98c0a87948445.ctex"]
+source_file="res://assets/sprites/following-enemy/Kla'ed - Scout - Base.png"
+dest_files=["res://.godot/imported/Kla'ed - Scout - Base.png-a2dc0ac51bb67ac6350b5186e929fb12.ctex"]
 
 [params]
 

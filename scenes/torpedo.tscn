@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://daoxsi0m5qu40"]
+
+[ext_resource type="Script" uid="uid://dh2nvakwyrhku" path="res://scripts/torpedo.gd" id="1_0ddwc"]
+[ext_resource type="Texture2D" uid="uid://drfwoa5wy614s" path="res://assets/sprites/bullets/Kla'ed - Torpedo.png" id="2_0ddwc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agymq"]
+atlas = ExtResource("2_0ddwc")
+region = Rect2(0, 0, 11, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8idko"]
+atlas = ExtResource("2_0ddwc")
+region = Rect2(11, 0, 11, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x835"]
+atlas = ExtResource("2_0ddwc")
+region = Rect2(22, 0, 11, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62odf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agymq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8idko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3x835")
+}],
+"loop": true,
+"name": &"bullet",
+"speed": 20.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m25o"]
+radius = 1.0
+height = 16.0
+
+[node name="Torpedo" type="Area2D" groups=["bullets"]]
+script = ExtResource("1_0ddwc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.5)
+sprite_frames = SubResource("SpriteFrames_62odf")
+animation = &"bullet"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1m25o")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.1, 0.8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

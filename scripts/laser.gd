@@ -21,6 +21,10 @@ func _on_area_entered(area):
 		var enemy = area
 		enemy.destroy()
 		queue_free()
+	if area is FollowingEnemy:
+		var enemy = area
+		enemy.destroy()
+		queue_free()
 	if area is Boss:
 		var boss = area
 		boss.hit()

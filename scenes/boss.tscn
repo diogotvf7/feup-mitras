@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://tmmmip7jbfxv"]
+[gd_scene load_steps=6 format=3 uid="uid://tmmmip7jbfxv"]
 
-[ext_resource type="Texture2D" uid="uid://joacv8gxbq4q" path="res://assets/sprites/boss.svg" id="1_dlmty"]
 [ext_resource type="Script" uid="uid://cxpt1q25v3ce2" path="res://scripts/boss.gd" id="1_neq0i"]
-[ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/azeite.tscn" id="2_jncid"]
+[ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/bullet.tscn" id="2_jncid"]
+[ext_resource type="PackedScene" uid="uid://daoxsi0m5qu40" path="res://scenes/torpedo.tscn" id="2_qnbj4"]
+[ext_resource type="Texture2D" uid="uid://qap05usc52nl" path="res://assets/sprites/Kla'ed - Battlecruiser - Base.png" id="3_qnbj4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_neq0i"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_dlmty")
+"texture": ExtResource("3_qnbj4")
 }],
 "loop": true,
 "name": &"default",
@@ -17,18 +18,17 @@ animations = [{
 
 [node name="Boss" type="Area2D" groups=["bosses"]]
 script = ExtResource("1_neq0i")
-azeite_scene = ExtResource("2_jncid")
+torpedo_scene = ExtResource("2_qnbj4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
-scale = Vector2(0.0803709, 0.0803709)
+scale = Vector2(0.426343, 0.426343)
 sprite_frames = SubResource("SpriteFrames_neq0i")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(3.8147e-06, -8)
+position = Vector2(-1, -8)
 scale = Vector2(0.0773986, 0.0773986)
 build_mode = 1
-polygon = PackedVector2Array(-384, 328, 268.665, 328, 384, 328, 24, -320)
+polygon = PackedVector2Array(-193.802, 206.722, 12.9201, 310.083, 219.642, 206.722, 219.642, 103.361, 116.281, 0, 116.281, -103.361, 12.9201, -206.722, -90.4409, -103.361, -90.4409, 0, -193.802, 103.361)
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 3.0
