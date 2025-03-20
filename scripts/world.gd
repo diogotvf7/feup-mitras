@@ -151,7 +151,7 @@ func spawn_powerup(pos) -> void:
 	var powerup = powerup_scene.instantiate()
 	powerup.position = pos
 	
-	add_child(powerup)
+	call_deferred("add_child", powerup)
 	
 func _on_score_timer_timeout() -> void:
 	score += 5
