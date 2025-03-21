@@ -1,9 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://h1cc20y4258y"]
+[gd_scene load_steps=20 format=3 uid="uid://h1cc20y4258y"]
 
 [ext_resource type="Script" uid="uid://dnanrsf21kl4u" path="res://scripts/following_enemy.gd" id="1_c4w8v"]
 [ext_resource type="Texture2D" uid="uid://c5k7eqnvshiqk" path="res://assets/sprites/following-enemy/Kla'ed - Scout - Base.png" id="2_0are1"]
 [ext_resource type="PackedScene" uid="uid://cuh1oimhecf6d" path="res://scenes/player.tscn" id="2_n0khk"]
 [ext_resource type="Texture2D" uid="uid://cu18podw1crye" path="res://assets/sprites/following-enemy/Kla'ed - Scout - Destruction.png" id="3_n0khk"]
+[ext_resource type="Texture2D" uid="uid://f36n3266x4uk" path="res://assets/sprites/health-bar/under.png" id="5_0urfy"]
+[ext_resource type="Texture2D" uid="uid://b7b0v0e1kq1i4" path="res://assets/sprites/health-bar/over.png" id="6_hhca6"]
+[ext_resource type="Texture2D" uid="uid://80q3oqgxy4ao" path="res://assets/sprites/health-bar/progress.png" id="7_w7ipx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_befvu"]
 atlas = ExtResource("3_n0khk")
@@ -113,6 +116,23 @@ scale = Vector2(0.6, 0.6)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemies"]]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_nenq2")
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.1, 0.1)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Node2D"]
+offset_left = -79.9999
+offset_top = 40.0003
+offset_right = 20.0001
+offset_bottom = 50.0003
+rotation = -1.57079
+max_value = 5.0
+step = 0.5
+value = 5.0
+rounded = true
+texture_under = ExtResource("5_0urfy")
+texture_over = ExtResource("6_hhca6")
+texture_progress = ExtResource("7_w7ipx")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

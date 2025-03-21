@@ -111,13 +111,14 @@ texture = ExtResource("3_8sq4i")
 hframes = 5
 
 [node name="ExtraHPLabel" type="Label" parent="."]
-offset_left = 18.0
+offset_left = 8.0
 offset_top = 133.0
-offset_right = 58.0
+offset_right = 48.0
 offset_bottom = 156.0
+horizontal_alignment = 2
 
 [node name="HP" type="Sprite2D" parent="."]
-position = Vector2(40, 144)
+position = Vector2(47, 144)
 scale = Vector2(0.82, 0.82)
 texture = ExtResource("4_640wx")
 hframes = 4
@@ -158,26 +159,6 @@ theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 38
 text = "0"
 horizontal_alignment = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -60.0
-offset_top = 22.0
-offset_right = 60.0
-offset_bottom = 49.0
-grow_horizontal = 2
-
-[node name="BossLabel" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Boss"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

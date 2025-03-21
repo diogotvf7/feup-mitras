@@ -13,8 +13,6 @@ func _ready() -> void:
 	$HP.hide()
 	$GameOverLabel.hide()
 	$FinalScoreLabel.hide()
-	$ProgressBar.hide()
-	$BossLabel.hide()
 	$StartButton.hide()
 	$Title.hide()
 	$Crawler.hide()
@@ -70,8 +68,6 @@ func show_game_over(score: int):
 	$Ammo.hide()
 	$ExtraHPLabel.hide()
 	$HP.hide()
-	$ProgressBar.hide()
-	$BossLabel.hide()
 	
 	$FinalScoreLabel.text = str(score)
 	$StartButton.show()
@@ -92,16 +88,5 @@ func _on_start_button_pressed() -> void:
 	$StartButton.text = "Play Again"
 	update_score(0)
 	
-func display_boss_hp():
-	$ProgressBar.value = 100
-	$ProgressBar.show()
-	$BossLabel.show()
-	
-func update_boss_hp(hp):
-	$ProgressBar.value = hp
-	if hp <= 0: 
-		$ProgressBar.hide()
-		$BossLabel.hide()
-
 func _on_skip_button_button_down() -> void:
 		_on_crawl_finished("")

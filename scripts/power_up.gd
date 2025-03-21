@@ -8,7 +8,7 @@ var powerup_type
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
-	var powerup = randi_range(1, 4)
+	var powerup = randi_range(1, 6)
 	if powerup == 1:
 		powerup_type = "auto-reload"
 	elif powerup == 2:
@@ -17,6 +17,10 @@ func _ready() -> void:
 		powerup_type = "plus-ammo"
 	elif powerup == 4:
 		powerup_type = "plus-hp"
+	elif powerup == 5:
+		powerup_type = "plus_damage"
+	elif powerup == 6:
+		powerup_type = "plus_shots"
 	
 	print(powerup, " ", powerup_type)
 	$AnimatedSprite2D.animation = powerup_type

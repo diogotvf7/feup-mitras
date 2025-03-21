@@ -9,10 +9,11 @@ extends Node2D
 
 const boss_scene = preload("res://scenes/boss.tscn")
 
-@export var powerup_odd := 0.6
 var score
 var game_stage = 0
+var level = 1
 	
+@export var powerup_odd := 0.6
 @export var obstacle_spawn_odd = .6
 @export var enemy_spawn_odd = 0
 @export var following_enemy_spawn_odd = 0
@@ -32,7 +33,7 @@ func _on_phase_timer_timeout() -> void:
 		enemy_spawn_odd = .3
 		
 		spawn_boss()
-	
+		
 	game_stage += 1
 
 func _ready() -> void:
@@ -48,12 +49,17 @@ func _on_hud_start_game() -> void:
 	
 	score = 0
 	game_stage = 0
+	obstacle_spawn_odd = .6
+	enemy_spawn_odd = 0
+	following_enemy_spawn_odd = 0
+	
 	get_tree().call_group("enemies", "queue_free")
 	get_tree().call_group("obstacles", "queue_free")
 	get_tree().call_group("bosses", "queue_free")
 	get_tree().call_group("bullets", "queue_free")
 	get_tree().call_group("powerups", "queue_free")
-	
+
+
 func _process(_delta: float) -> void:
 	$HUD.update_ammo($Player.ammo)
 	$HUD.update_hp($Player.hp)
@@ -113,9 +119,9 @@ func _on_obstacle_exploded(pos, size):
 	$HUD.update_score(score)
 			
 func spawn_following_enemy():
-	var enemy
 	var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
-	enemy = following_enemy_scene.instantiate()
+	var enemy = following_enemy_scene.instantiate()
+	enemy.set_level(level)
 	enemy_spawn_location.progress_ratio = randf()
 	enemy.position = enemy_spawn_location.position
 	var direction = enemy_spawn_location.rotation + PI / 2
@@ -125,9 +131,9 @@ func spawn_following_enemy():
 	add_child(enemy)
 
 func spawn_enemy():
-	var enemy
 	var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
-	enemy = enemy_scene.instantiate()
+	var enemy = enemy_scene.instantiate()
+	enemy.set_level(level)
 	enemy_spawn_location.progress_ratio = randf()
 	enemy.position = enemy_spawn_location.position
 	var direction = enemy_spawn_location.rotation + PI / 2
@@ -137,11 +143,13 @@ func spawn_enemy():
 	add_child(enemy)
 	
 func spawn_boss():
-	$HUD.display_boss_hp()
 	var boss = boss_scene.instantiate()
-	boss.connect("shot", $HUD.update_boss_hp)
 	boss.dead.connect(_on_enemy_dead)
+	boss.dead.connect(inc_level)
 	get_parent().add_child(boss)
+
+func inc_level(_ignore):
+	level += 1
 
 func _on_enemy_dead(points) -> void:
 	score += points

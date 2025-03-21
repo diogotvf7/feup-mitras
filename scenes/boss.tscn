@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://tmmmip7jbfxv"]
+[gd_scene load_steps=9 format=3 uid="uid://tmmmip7jbfxv"]
 
 [ext_resource type="Script" uid="uid://cxpt1q25v3ce2" path="res://scripts/boss.gd" id="1_neq0i"]
 [ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/bullet.tscn" id="2_jncid"]
 [ext_resource type="PackedScene" uid="uid://daoxsi0m5qu40" path="res://scenes/torpedo.tscn" id="2_qnbj4"]
 [ext_resource type="Texture2D" uid="uid://qap05usc52nl" path="res://assets/sprites/Kla'ed - Battlecruiser - Base.png" id="3_qnbj4"]
+[ext_resource type="Texture2D" uid="uid://f36n3266x4uk" path="res://assets/sprites/health-bar/under.png" id="5_2cdgk"]
+[ext_resource type="Texture2D" uid="uid://b7b0v0e1kq1i4" path="res://assets/sprites/health-bar/over.png" id="6_qsl3t"]
+[ext_resource type="Texture2D" uid="uid://80q3oqgxy4ao" path="res://assets/sprites/health-bar/progress.png" id="7_2avx2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_neq0i"]
 animations = [{
@@ -34,6 +37,23 @@ polygon = PackedVector2Array(-193.802, 206.722, 12.9201, 310.083, 219.642, 206.7
 wait_time = 3.0
 
 [node name="Azeite" parent="." instance=ExtResource("2_jncid")]
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Node2D"]
+offset_left = 56.0
+offset_top = 46.0
+offset_right = 156.0
+offset_bottom = 56.0
+rotation = -1.57079
+max_value = 5.0
+step = 0.5
+value = 5.0
+rounded = true
+texture_under = ExtResource("5_2cdgk")
+texture_over = ExtResource("6_qsl3t")
+texture_progress = ExtResource("7_2avx2")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

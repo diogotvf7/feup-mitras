@@ -16,6 +16,7 @@ enum ObstacleSize{LARGE, SMALL}
 
 var time := 0.0
 var pivot_position := Vector2(0, 0)
+var has_exploded = false
 
 signal shot
 
@@ -49,9 +50,11 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 	
 func exploded():
+	if has_exploded: return
+	has_exploded = true 
 	emit_signal("shot", position, size)
 	queue_free()
-
+	
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.kill_player()

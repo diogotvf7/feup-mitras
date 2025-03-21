@@ -1,15 +1,15 @@
 class_name Boss
 extends Area2D
 
-@export var max_hp = 100
-@export var speed = 100
 var screen_size
 
+@export var torpedo_scene: PackedScene
+
 var hp = 100
-signal shot
 signal dead(points)
 
-@export var torpedo_scene: PackedScene
+@export var max_hp: float = 100.0
+@export var speed = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,19 +18,30 @@ func _ready() -> void:
 	position.y = screen_size.y / 2
 	$ShootTimer.start()
 	rotation -= PI/2
+	hp = max_hp
+	$Node2D/TextureProgressBar.min_value = 0.0
+	$Node2D/TextureProgressBar.max_value = max_hp
+	$Node2D/TextureProgressBar.step = 0.5
+	$Node2D/TextureProgressBar.value = hp
+
+func set_level(level):
+	max_hp *= pow(level, 2)
+	hp = max_hp
+	$Node2D/TextureProgressBar.max_value = max_hp
+	$Node2D/TextureProgressBar.value = hp
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if position.x / screen_size.x > 0.8:
 		position.x -= speed * delta
 
-func hit() -> void:
-	hp -= 5 
-	shot.emit(hp)
+func hit(damage):
+	hp -= float(damage)
+	$Node2D/TextureProgressBar.value = hp
 	if hp <= 0:
 		dead.emit(1000)
 		queue_free()
-
+		
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.kill_player()

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ca2bnm03c6s4k" path="res://assets/sprites/player/flash.png" id="2_dgxkf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8rc7"]
-size = Vector2(16, 12)
+size = Vector2(24, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l8jxk"]
 animations = [{
@@ -34,6 +34,7 @@ texture = ExtResource("1_v828l")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_a8rc7")
 
 [node name="ShootAnimation" type="AnimatedSprite2D" parent="."]

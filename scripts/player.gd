@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal dead
 
+@export var damage = 2.5
 @export var speed = 100
 var input := Vector2.ZERO
 
@@ -13,6 +14,7 @@ var input := Vector2.ZERO
 const laser_scene = preload("res://scenes/laser.tscn")
 const cooldown_time = 3.0
 
+var shots = 1
 var max_ammo = 3
 var ammo = max_ammo
 var autoreload = false
@@ -30,8 +32,7 @@ func respawn() -> void:
 	tween.tween_property(self, "position", Vector2(x + 100, y), 0.5 )
 	
 	ammo = max_ammo
-	set_invincibility()	
-	
+	set_invincibility()
 
 func reset_stats():
 	autoreload = false
@@ -68,9 +69,15 @@ func limit_position():
 func shoot():
 	if ammo > 0:
 		shoot_animation.play("flash")
-		var laser = laser_scene.instantiate()
-		get_parent().add_child(laser)
-		laser.position = position + Vector2(30, 0)
+		for i in range(shots):
+			var laser = laser_scene.instantiate()
+			var y_offset = 0
+			if shots % 2 == 1:
+				y_offset = (i - int(shots / 2)) * 5
+			else:
+				y_offset = (i - int(shots / 2 - 1)) * 5
+			laser.position = position + Vector2(30, y_offset)
+			get_parent().add_child(laser)
 		ammo -= 1
 		
 		if ammo == 0:
@@ -104,17 +111,18 @@ func _on_invincibility_timer_timeout() -> void:
 
 func apply_power(powerup_type) -> void:
 	if powerup_type == "auto-reload":
-		if autoreload:
-			$Timer.wait_time /= 2
-		else:
-			$Timer.wait_time *= 0.8
 		autoreload = true
-	if powerup_type == "invincibility":
+		$Timer.wait_time *= 0.8
+	elif powerup_type == "invincibility":
 		set_invincibility()
-	if powerup_type == "plus-ammo":
+	elif powerup_type == "plus-ammo":
 		max_ammo += 1
 		ammo = max_ammo
-	if powerup_type == "plus-hp":
+	elif powerup_type == "plus-hp":
 		hp += 1
+	elif powerup_type == "plus_damage":
+		damage *= 1.25
+	elif powerup_type == "plus_shots":
+		shots += 1
 		
 	
