@@ -231,16 +231,29 @@ scale = Vector2(0.82, 0.82)
 texture = ExtResource("4_640wx")
 hframes = 4
 
+[node name="QuitButton" type="Button" parent="."]
+offset_left = 98.0
+offset_top = 126.0
+offset_right = 171.0
+offset_bottom = 140.0
+theme_override_fonts/font = ExtResource("2_047uy")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("4_hd3ao")
+theme_override_styles/hover = ExtResource("4_5pdws")
+theme_override_styles/pressed = ExtResource("4_5pdws")
+theme_override_styles/normal = ExtResource("4_047uy")
+text = "Quit"
+
 [node name="StartButton" type="Button" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -36.0
-offset_top = -62.0
-offset_right = 30.0
-offset_bottom = -43.0
+offset_left = -38.0
+offset_top = -52.0
+offset_right = 35.0
+offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -298,15 +311,15 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(136, 73)
+position = Vector2(136, 71)
 scale = Vector2(0.0239131, 0.0239131)
 texture = ExtResource("7_hd3ao")
 
 [node name="SkipButton" type="Button" parent="."]
-offset_left = 233.0
-offset_top = 141.0
+offset_left = 237.0
+offset_top = 143.0
 offset_right = 268.0
-offset_bottom = 156.0
+offset_bottom = 154.0
 theme_override_fonts/font = ExtResource("2_047uy")
 theme_override_font_sizes/font_size = 9
 theme_override_styles/focus = ExtResource("4_hd3ao")
@@ -352,6 +365,7 @@ scale = Vector2(0.436189, 0.436189)
 sprite_frames = SubResource("SpriteFrames_qpprf")
 animation = &"ammo"
 
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="button_down" from="SkipButton" to="." method="_on_skip_button_button_down"]

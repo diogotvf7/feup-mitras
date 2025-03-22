@@ -5,85 +5,107 @@ signal start_game
 var stage = 0
 @export var scroll_speed = 10
 
+@onready var score_label = $ScoreLabel
+@onready var ammo = $Ammo
+@onready var extra_hp_label = $ExtraHPLabel
+@onready var hp = $HP
+@onready var game_over_label = $GameOverLabel
+@onready var final_score_label = $FinalScoreLabel
+@onready var start_button = $StartButton
+@onready var title = $Title
+@onready var crawler = $Crawler
+@onready var skip_button = $SkipButton
+@onready var a_long_time_ago = $ALongTimeAgo
+@onready var timer = $Timer
+@onready var expand_title = $ExpandTitle
+@onready var crawl = $Crawl
+@onready var quit_button: Button = $QuitButton
+
 func _ready() -> void:
-	$ScoreLabel.hide()
-	$Ammo.hide()
-	$ExtraHPLabel.hide()
-	$HP.hide()
-	$GameOverLabel.hide()
-	$FinalScoreLabel.hide()
-	$StartButton.hide()
-	$Title.hide()
-	$Crawler.hide()
-	$SkipButton.hide()
-	$ALongTimeAgo.show()
+	score_label.hide()
+	ammo.hide()
+	extra_hp_label.hide()
+	hp.hide()
+	game_over_label.hide()
+	final_score_label.hide()
+	start_button.hide()
+	quit_button.hide()
+	title.hide()
+	crawler.hide()
+	skip_button.hide()
+	a_long_time_ago.show()
 
 func _on_timer_timeout() -> void:
 	match stage:
 		0:
-			$ALongTimeAgo.show()
+			a_long_time_ago.show()
 		1:
-			$ALongTimeAgo.hide()
-			$Title.show()
-			$ExpandTitle.play("expand")
+			a_long_time_ago.hide()
+			title.show()
+			expand_title.play("expand")
 		2:
-			$Timer.stop()
-			$Title.hide()
-			$Crawler.show()
-			$SkipButton.show()
-			$Crawl.play("crawl")
-			$Crawl.animation_finished.connect(_on_crawl_finished)
+			timer.stop()
+			title.hide()
+			crawler.show()
+			skip_button.show()
+			crawl.play("crawl")
+			crawl.animation_finished.connect(_on_crawl_finished)
 	stage += 1
 	
 func _on_crawl_finished(_anim_name: String) -> void:
-	$Crawl.stop()
-	$SkipButton.hide()
-	$Crawler.hide()
-	$Title.show()
-	$StartButton.show()
+	crawl.stop()
+	skip_button.hide()
+	crawler.hide()
+	title.show()
+	start_button.show()
+	quit_button.show()
 
 func update_score(score):
-	$ScoreLabel.text = str(score)
+	score_label.text = str(score)
 
-func update_ammo(ammo):
-	if (ammo > 0):
-		$Ammo.play("ammo")
-		$Ammo.frame = ammo - 1
+func update_ammo(ammo_count):
+	if ammo_count > 0:
+		ammo.play("ammo")
+		ammo.frame = ammo_count - 1
 	else:
-		$Ammo.play("loading")
-		
+		ammo.play("loading")
 
-func update_hp(hp):
-	if (hp > 3):
-		$ExtraHPLabel.text = str(hp) + "✕"
-		$HP.frame = 3
-	elif hp > 0:
-		$ExtraHPLabel.text = ""
-		$HP.frame = hp-1
-		
+func update_hp(hp_count):
+	if hp_count > 3:
+		extra_hp_label.text = str(hp_count) + "✕"
+		hp.frame = 3
+	elif hp_count > 0:
+		extra_hp_label.text = ""
+		hp.frame = hp_count - 1
+
 func show_game_over(score: int):
-	$ScoreLabel.hide()
-	$Ammo.hide()
-	$ExtraHPLabel.hide()
-	$HP.hide()
+	score_label.hide()
+	ammo.hide()
+	extra_hp_label.hide()
+	hp.hide()
 	
-	$FinalScoreLabel.text = str(score)
-	$StartButton.show()
-	$GameOverLabel.show()
-	$FinalScoreLabel.show()
+	final_score_label.text = str(score)
+	start_button.show()
+	quit_button.show()
+	game_over_label.show()
+	final_score_label.show()
 	
 func _on_start_button_pressed() -> void:
-	$StartButton.hide()
-	$GameOverLabel.hide()
-	$FinalScoreLabel.hide()
-	$Title.hide()
-	$ScoreLabel.show()
-	$Ammo.show()
-	$ExtraHPLabel.show()
-	$HP.show()
+	start_button.hide()
+	quit_button.hide()
+	game_over_label.hide()
+	final_score_label.hide()
+	title.hide()
+	score_label.show()
+	ammo.show()
+	extra_hp_label.show()
+	hp.show()
 	start_game.emit()
-	$StartButton.text = "Play Again"
+	start_button.text = "Play again"
 	update_score(0)
-	
+
 func _on_skip_button_button_down() -> void:
-		_on_crawl_finished("")
+	_on_crawl_finished("")
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
