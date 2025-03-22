@@ -10,6 +10,7 @@ var input := Vector2.ZERO
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var shoot_animation : AnimatedSprite2D = $ShootAnimation
 @onready var timer: Timer = $Timer
+@onready var invincibility_timer : Timer = $InvincibilityTimer
 
 const laser_scene = preload("res://scenes/laser.tscn")
 const cooldown_time = 3.0
@@ -39,6 +40,7 @@ func reset_stats():
 	timer.wait_time = 3.0
 	hp = 3
 	max_ammo = 3
+	shots = 1
 	
 func _process(delta):  
 	move(delta)
@@ -79,7 +81,6 @@ func shoot():
 			laser.position = position + Vector2(30, y_offset)
 			get_parent().add_child(laser)
 		ammo -= 1
-		
 		if ammo == 0:
 			timer.start()
 
@@ -103,7 +104,7 @@ func kill_player():
 		dead.emit()
 
 func set_invincibility():
-	$InvincibilityTimer.start()
+	invincibility_timer.start()
 	invincibility = true
 	
 func _on_invincibility_timer_timeout() -> void:
@@ -111,18 +112,21 @@ func _on_invincibility_timer_timeout() -> void:
 
 func apply_power(powerup_type) -> void:
 	if powerup_type == "auto-reload":
-		autoreload = true
-		$Timer.wait_time *= 0.8
+		set_autoreload()
 	elif powerup_type == "invincibility":
 		set_invincibility()
 	elif powerup_type == "plus-ammo":
-		max_ammo += 1
-		ammo = max_ammo
+		if ammo < max_ammo:
+			ammo += 1
 	elif powerup_type == "plus-hp":
-		hp += 1
+		if hp < 3:
+			hp += 1
 	elif powerup_type == "plus_damage":
 		damage *= 1.25
 	elif powerup_type == "plus_shots":
 		shots += 1
 		
-	
+
+func set_autoreload():
+	if (ammo < max_ammo):
+		ammo = max_ammo
