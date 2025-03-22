@@ -7,7 +7,6 @@ var stage = 0
 
 func _ready() -> void:
 	$ScoreLabel.hide()
-	$ExtraAmmoLabel.hide()
 	$Ammo.hide()
 	$ExtraHPLabel.hide()
 	$HP.hide()
@@ -47,12 +46,12 @@ func update_score(score):
 	$ScoreLabel.text = str(score)
 
 func update_ammo(ammo):
-	if (ammo > 3):
-		$ExtraAmmoLabel.text = str(ammo) + "✕"
-		$Ammo.frame = 1
+	if (ammo > 0):
+		$Ammo.play("ammo")
+		$Ammo.frame = ammo - 1
 	else:
-		$ExtraAmmoLabel.text = ""
-		$Ammo.frame = ammo
+		$Ammo.play("loading")
+		
 
 func update_hp(hp):
 	if (hp > 3):
@@ -64,7 +63,6 @@ func update_hp(hp):
 		
 func show_game_over(score: int):
 	$ScoreLabel.hide()
-	$ExtraAmmoLabel.hide()
 	$Ammo.hide()
 	$ExtraHPLabel.hide()
 	$HP.hide()
@@ -80,7 +78,6 @@ func _on_start_button_pressed() -> void:
 	$FinalScoreLabel.hide()
 	$Title.hide()
 	$ScoreLabel.show()
-	$ExtraAmmoLabel.show()
 	$Ammo.show()
 	$ExtraHPLabel.show()
 	$HP.show()

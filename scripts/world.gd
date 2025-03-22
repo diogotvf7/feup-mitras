@@ -6,6 +6,9 @@ extends Node2D
 @onready var mob_spawner: Timer = $MobSpawner
 @onready var score_timer: Timer = $ScoreTimer
 @onready var phase_timer: Timer = $PhaseTimer
+@onready var player: Player = $Player
+@onready var hud: CanvasLayer = $HUD
+
 
 const boss_scene = preload("res://scenes/boss.tscn")
 
@@ -37,12 +40,12 @@ func _on_phase_timer_timeout() -> void:
 	game_stage += 1
 
 func _ready() -> void:
-	$Player.hide()
+	player.hide()
 	
 func _on_hud_start_game() -> void:
-	$Player.show()
-	$Player.reset_stats()
-	$Player.respawn()
+	player.show()
+	player.reset_stats()
+	player.respawn()
 	score_timer.start()
 	phase_timer.start()
 	mob_spawner.start()
@@ -61,8 +64,8 @@ func _on_hud_start_game() -> void:
 
 
 func _process(_delta: float) -> void:
-	$HUD.update_ammo($Player.ammo)
-	$HUD.update_hp($Player.hp)
+	hud.update_ammo(player.ammo)
+	hud.update_hp(player.hp)
 	
 func spawn_obstacle()->void:
 	var obstacle = preload("res://scenes/obstacle.tscn").instantiate()
@@ -116,7 +119,7 @@ func _on_obstacle_exploded(pos, size):
 		Obstacle.ObstacleSize.SMALL:
 			score += 25
 			spawn_explosion(pos)
-	$HUD.update_score(score)
+	hud.update_score(score)
 			
 func spawn_following_enemy():
 	var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
@@ -153,7 +156,7 @@ func inc_level(_ignore):
 
 func _on_enemy_dead(points) -> void:
 	score += points
-	$HUD.update_score(score)
+	hud.update_score(score)
 
 func spawn_powerup(pos) -> void:
 	var powerup = powerup_scene.instantiate()
@@ -163,11 +166,11 @@ func spawn_powerup(pos) -> void:
 	
 func _on_score_timer_timeout() -> void:
 	score += 5
-	$HUD.update_score(score)
+	hud.update_score(score)
 
 func _on_player_dead() -> void:
-	$HUD.show_game_over(score)
-	$Player.ammo = 9999
-	$Player.invincibility = true
-	$PhaseTimer.stop()
+	hud.show_game_over(score)
+	player.ammo = 9999
+	player.invincibility = true
+	phase_timer.stop()
 	mob_spawner.stop()
