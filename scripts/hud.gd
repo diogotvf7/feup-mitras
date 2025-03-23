@@ -107,8 +107,8 @@ func _on_start_button_pressed() -> void:
 	start_button.text = "Play again"
 	update_score(0)
 	var tween = create_tween()
-	tween.tween_property(audio, "volume_db", -40, 2.0)  # Fade out in 2 seconds
-	tween.tween_property(game_song, "volume_db", 0, 2.0)  # Fade in at the same time
+	tween.tween_property(audio, "volume_db", -40, 2.0)  
+	tween.tween_property(game_song, "volume_db", 0, 2.0) 
 	if not game_song.playing:
 		game_song.play()
 

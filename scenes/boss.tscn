@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://tmmmip7jbfxv"]
+[gd_scene load_steps=10 format=3 uid="uid://tmmmip7jbfxv"]
 
 [ext_resource type="Script" uid="uid://cxpt1q25v3ce2" path="res://scripts/boss.gd" id="1_neq0i"]
 [ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/bullet.tscn" id="2_jncid"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://f36n3266x4uk" path="res://assets/sprites/health-bar/under.png" id="5_2cdgk"]
 [ext_resource type="Texture2D" uid="uid://b7b0v0e1kq1i4" path="res://assets/sprites/health-bar/over.png" id="6_qsl3t"]
 [ext_resource type="Texture2D" uid="uid://80q3oqgxy4ao" path="res://assets/sprites/health-bar/progress.png" id="7_2avx2"]
+[ext_resource type="AudioStream" uid="uid://cko25hsb3ajuc" path="res://assets/sound/explosion.mp3" id="8_qsl3t"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_neq0i"]
 animations = [{
@@ -54,6 +55,10 @@ rounded = true
 texture_under = ExtResource("5_2cdgk")
 texture_over = ExtResource("6_qsl3t")
 texture_progress = ExtResource("7_2avx2")
+
+[node name="explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_qsl3t")
+bus = &"Sound effect"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

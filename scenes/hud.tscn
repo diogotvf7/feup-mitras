@@ -295,7 +295,7 @@ text = "0"
 horizontal_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.5
 autostart = true
 
 [node name="ALongTimeAgo" type="Label" parent="."]

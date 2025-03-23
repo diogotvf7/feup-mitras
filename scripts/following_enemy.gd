@@ -11,6 +11,9 @@ var hp: float
 @export var max_hp: float = 2.5
 @export var player_scene: PackedScene
 
+@onready var explosion: AudioStreamPlayer2D = $explosion
+
+
 func _ready() -> void:
 	speed = 20 * randi_range(1, 3)
 	player = get_tree().get_first_node_in_group("player")  
@@ -58,6 +61,9 @@ func destroy():
 	has_died = true
 	$AnimatedSprite2D.animation = "destruction"
 	$AnimatedSprite2D.play()
+	explosion.play()
+	var tween = create_tween()
+	tween.tween_property(explosion, "volume_db", -40, 2.0) 
 	emit_signal("dead", 150)
 	
 	await $AnimatedSprite2D.animation_finished

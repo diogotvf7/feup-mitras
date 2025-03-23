@@ -149,6 +149,7 @@ func spawn_boss():
 	var boss = boss_scene.instantiate()
 	boss.dead.connect(_on_enemy_dead)
 	boss.dead.connect(inc_level)
+	boss.connect("exploded", _on_boss_exploded)
 	get_parent().add_child(boss)
 
 func inc_level(_ignore):
@@ -174,3 +175,6 @@ func _on_player_dead() -> void:
 	player.invincibility = true
 	phase_timer.stop()
 	mob_spawner.stop()
+
+func _on_boss_exploded(position):
+	spawn_explosion(position)

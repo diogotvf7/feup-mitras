@@ -11,6 +11,8 @@ var input := Vector2.ZERO
 @onready var shoot_animation : AnimatedSprite2D = $ShootAnimation
 @onready var timer: Timer = $Timer
 @onready var invincibility_timer : Timer = $InvincibilityTimer
+@onready var shoot_sound: AudioStreamPlayer2D = $shoot
+@onready var powerup: AudioStreamPlayer2D = $powerup
 
 const laser_scene = preload("res://scenes/laser.tscn")
 const cooldown_time = 3.0
@@ -71,6 +73,7 @@ func limit_position():
 func shoot():
 	if ammo > 0:
 		shoot_animation.play("flash")
+		shoot_sound.play()
 		for i in range(shots):
 			var laser = laser_scene.instantiate()
 			var y_offset = 0
@@ -111,6 +114,7 @@ func _on_invincibility_timer_timeout() -> void:
 	invincibility = false
 
 func apply_power(powerup_type) -> void:
+	powerup.play()
 	if powerup_type == "auto-reload":
 		set_autoreload()
 	elif powerup_type == "invincibility":

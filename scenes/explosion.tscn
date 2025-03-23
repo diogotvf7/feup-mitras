@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://eus118aa7yxs"]
+[gd_scene load_steps=6 format=3 uid="uid://eus118aa7yxs"]
 
 [ext_resource type="Texture2D" uid="uid://cn1dh8110fr61" path="res://assets/sprites/explosion.png" id="1_m07q5"]
+[ext_resource type="AudioStream" uid="uid://cko25hsb3ajuc" path="res://assets/sound/explosion.mp3" id="2_nfeox"]
 
 [sub_resource type="Animation" id="Animation_o0ls2"]
 length = 0.001
@@ -61,3 +62,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_2h7ca")
 }
 autoplay = "explode"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_nfeox")
+autoplay = true
+bus = &"Sound effect"

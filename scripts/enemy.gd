@@ -12,6 +12,8 @@ var hp: float
 @export var max_hp: float = 5.0
 @export var bullet_scene: PackedScene
 
+@onready var explosion: AudioStreamPlayer2D = $explosion
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	speed = 20 * randi_range(1, 3)
@@ -53,6 +55,7 @@ func destroy():
 	$CollisionShape2D.set_deferred("disabled", true)
 	has_died = true
 	$AnimatedSprite2D.animation = "destruction"
+	explosion.play()
 	$AnimatedSprite2D.play()
 	emit_signal("dead", 300)
 	
