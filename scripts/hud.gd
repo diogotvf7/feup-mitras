@@ -117,3 +117,21 @@ func _on_skip_button_button_down() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("skip_intro"):  # Custom action for "S" key
+		_skip_intro()
+
+func _skip_intro() -> void:
+	audio.stop()
+	timer.stop()
+	expand_title.stop()  
+	crawl.stop() 
+	if crawl.animation_finished.is_connected(_on_crawl_finished):
+		crawl.animation_finished.disconnect(_on_crawl_finished)
+
+	a_long_time_ago.hide()
+	title.hide()
+	crawler.hide()
+	skip_button.hide()
+	_on_start_button_pressed()  
