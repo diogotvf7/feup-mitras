@@ -20,6 +20,8 @@ var stage = 0
 @onready var expand_title = $ExpandTitle
 @onready var crawl = $Crawl
 @onready var quit_button: Button = $QuitButton
+@onready var audio: AudioStreamPlayer2D = $Intro
+@onready var game_song: AudioStreamPlayer2D = $GameSong
 
 func _ready() -> void:
 	score_label.hide()
@@ -40,6 +42,7 @@ func _on_timer_timeout() -> void:
 		0:
 			a_long_time_ago.show()
 		1:
+			audio.play()
 			a_long_time_ago.hide()
 			title.show()
 			expand_title.play("expand")
@@ -103,6 +106,11 @@ func _on_start_button_pressed() -> void:
 	start_game.emit()
 	start_button.text = "Play again"
 	update_score(0)
+	var tween = create_tween()
+	tween.tween_property(audio, "volume_db", -40, 2.0)  # Fade out in 2 seconds
+	tween.tween_property(game_song, "volume_db", 0, 2.0)  # Fade in at the same time
+	if not game_song.playing:
+		game_song.play()
 
 func _on_skip_button_button_down() -> void:
 	_on_crawl_finished("")
