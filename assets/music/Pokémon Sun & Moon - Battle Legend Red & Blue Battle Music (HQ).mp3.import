@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d058ma7lrt48f"
+path="res://.godot/imported/Pokémon Sun & Moon - Battle Legend Red & Blue Battle Music (HQ).mp3-06eb54bcad06b57688622c13a8c4b987.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Pokémon Sun & Moon - Battle Legend Red & Blue Battle Music (HQ).mp3"
+dest_files=["res://.godot/imported/Pokémon Sun & Moon - Battle Legend Red & Blue Battle Music (HQ).mp3-06eb54bcad06b57688622c13a8c4b987.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

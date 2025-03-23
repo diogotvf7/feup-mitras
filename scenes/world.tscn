@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnlcksg41tv78"]
+[gd_scene load_steps=14 format=3 uid="uid://cnlcksg41tv78"]
 
 [ext_resource type="Script" uid="uid://cggo2y67ynnmq" path="res://scripts/world.gd" id="1_hycg4"]
 [ext_resource type="Texture2D" uid="uid://bqb32lws0o5of" path="res://assets/sprites/background/stars.png" id="1_jillp"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://h1cc20y4258y" path="res://scenes/following_enemy.tscn" id="2_qfnet"]
 [ext_resource type="PackedScene" uid="uid://bk2j0unnrbu0w" path="res://scenes/enemy.tscn" id="3_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://beers4vlbj5co" path="res://scenes/hud.tscn" id="7_i7141"]
+[ext_resource type="PackedScene" uid="uid://dbwd7xdi6n7pr" path="res://scenes/pause_menu.tscn" id="10_w7kh3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t2aqe"]
 shader = ExtResource("1_ta8da")
@@ -67,6 +68,10 @@ rotation = 1.5708
 
 [node name="PhaseTimer" type="Timer" parent="."]
 wait_time = 30.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("10_w7kh3")]
 
 [connection signal="dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="timeout" from="MobSpawner" to="." method="_on_mob_spawner_timeout"]

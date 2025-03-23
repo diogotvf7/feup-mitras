@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bk2j0unnrbu0w"]
+[gd_scene load_steps=20 format=3 uid="uid://bk2j0unnrbu0w"]
 
 [ext_resource type="Script" uid="uid://ci1r6ma55ismc" path="res://scripts/enemy.gd" id="1_xwavj"]
 [ext_resource type="PackedScene" uid="uid://cfflgh14d40ao" path="res://scenes/bullet.tscn" id="2_nenq2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://f36n3266x4uk" path="res://assets/sprites/health-bar/under.png" id="5_nenq2"]
 [ext_resource type="Texture2D" uid="uid://b7b0v0e1kq1i4" path="res://assets/sprites/health-bar/over.png" id="6_md484"]
 [ext_resource type="Texture2D" uid="uid://80q3oqgxy4ao" path="res://assets/sprites/health-bar/progress.png" id="7_ipns3"]
+[ext_resource type="AudioStream" uid="uid://cko25hsb3ajuc" path="res://assets/sound/explosion.mp3" id="8_md484"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwavj"]
 atlas = ExtResource("4_c4w8v")
@@ -136,6 +137,10 @@ rounded = true
 texture_under = ExtResource("5_nenq2")
 texture_over = ExtResource("6_md484")
 texture_progress = ExtResource("7_ipns3")
+
+[node name="explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_md484")
+bus = &"Sound effect"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

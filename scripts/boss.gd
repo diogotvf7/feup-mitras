@@ -11,6 +11,7 @@ signal dead(points)
 @export var max_hp: float = 100.0
 @export var speed = 100
 
+signal exploded
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -40,6 +41,7 @@ func hit(damage):
 	$Node2D/TextureProgressBar.value = hp
 	if hp <= 0:
 		dead.emit(1000)
+		emit_signal("exploded", position)
 		queue_free()
 		
 func _on_body_entered(body: Node2D) -> void:

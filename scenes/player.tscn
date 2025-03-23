@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuh1oimhecf6d"]
+[gd_scene load_steps=8 format=3 uid="uid://cuh1oimhecf6d"]
 
 [ext_resource type="Script" uid="uid://bbvc5p002cea0" path="res://scripts/player.gd" id="1_fcbqb"]
 [ext_resource type="Texture2D" uid="uid://dedo31s4fwkuo" path="res://assets/sprites/player/nave.png" id="1_v828l"]
 [ext_resource type="Texture2D" uid="uid://ca2bnm03c6s4k" path="res://assets/sprites/player/flash.png" id="2_dgxkf"]
+[ext_resource type="AudioStream" uid="uid://bk5p1qhia7gen" path="res://assets/sound/laser.mp3" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://c0ouxv1tr74in" path="res://assets/sound/powerup.mp3" id="5_qlg0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8rc7"]
 size = Vector2(24, 12)
@@ -50,6 +52,14 @@ wait_time = 3.0
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dqkch")
+bus = &"shoot"
+
+[node name="powerup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qlg0r")
+bus = &"Sound effect"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
